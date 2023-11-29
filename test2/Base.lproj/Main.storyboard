@@ -17,27 +17,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="khB-bN-aJM">
-                                <rect key="frame" x="10" y="69" width="393" height="759"/>
+                                <rect key="frame" x="50" y="109" width="277" height="659"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellPlain" id="FTO-qm-En9">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="277" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FTO-qm-En9" id="fmy-1J-Qrs">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="277" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZF-dn-ROn">
+                                <rect key="frame" x="50" y="64" width="293" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="buttonClicked" destination="BYZ-38-t0r" eventType="touchUpInside" id="43t-3q-JCh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="khB-bN-aJM" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="10" id="69D-pJ-o5g"/>
-                            <constraint firstItem="khB-bN-aJM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="6Kp-d3-Zl4"/>
-                            <constraint firstItem="khB-bN-aJM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="SCg-2O-G8q"/>
-                            <constraint firstItem="khB-bN-aJM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="10" id="g3u-m3-wXu"/>
+                            <constraint firstItem="NZF-dn-ROn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="5" id="9zK-ah-n57"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="khB-bN-aJM" secondAttribute="trailing" constant="50" id="EaK-US-nPW"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="khB-bN-aJM" secondAttribute="bottom" constant="50" id="Fir-rm-HAk"/>
+                            <constraint firstItem="khB-bN-aJM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="Lc6-rI-zhk"/>
+                            <constraint firstItem="khB-bN-aJM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="oT3-Pa-x5s"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NZF-dn-ROn" secondAttribute="trailing" constant="50" id="wJI-cP-7JP"/>
+                            <constraint firstItem="NZF-dn-ROn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="zny-qJ-n1w"/>
                         </constraints>
                     </view>
                     <connections>

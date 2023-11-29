@@ -9,16 +9,10 @@ class ViewController: UIViewController {
     
     let networkManager = NetworkManager()
     
-
     
     @IBOutlet var table : UITableView!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        table.delegate = self
-        table.dataSource = self
-        self.view.addSubview(table)
-        
+    @IBAction func buttonClicked(){
         networkManager.getProducts { result in
             switch result {
             case .success(let products):
@@ -30,7 +24,12 @@ class ViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-        
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        table.delegate = self
+        table.dataSource = self
+       
     }
 
 }
@@ -43,8 +42,7 @@ extension ViewController:UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-       
-        var value = products[indexPath.row].title
+        let value = products[indexPath.row].title
         cell.textLabel?.text = "\(value)"
         return cell
     }
