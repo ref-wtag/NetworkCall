@@ -44,6 +44,7 @@ extension ViewController:UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         let value = products[indexPath.row].title
         cell.textLabel?.text = "\(value)"
+        cell.backgroundColor = UIColor.lightGray
         return cell
     }
     

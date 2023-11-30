@@ -5,8 +5,8 @@ class NetworkManager {
     completion: @escaping (Result<[Product], Error>) -> ()
     )  {
         let url = URL(string: "https://fakestoreapi.com/products")!
-        let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { data, _,error in
+      //  let request = URLRequest(url: url)
+        let task = URLSession.shared.dataTask(with: url) { data, _,error in
             if let data = data {
                 do {
                     let result = try JSONDecoder().decode([Product].self, from: data)
