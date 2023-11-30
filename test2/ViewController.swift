@@ -4,17 +4,15 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet var table : UITableView!
+    var res : Response?
     
     @IBAction func buttonClick(_ sender : UIButton){
-        // let urlString = "https://api.sunrise-sunset.org/json?date=%202020-01-01&lat=-74.0060&lng=40.7128&formatted=0"
-         
-         let urlString = "https://fakestoreapi.com/products"
-         fetchApiData(with : urlString)
+        let url = "https://api.sunrise-sunset.org/json?date= 2020-01-01&lat=-74.0060&lng=40.7128&formatted=0"
+        fetchApiData(with : url)
           sender.isHidden = true
     }
     
-    
-    var apiData : [[ String : Any]] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         table.delegate = self
@@ -22,81 +20,65 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func fetchApiData(with url : String){
-        guard let url = URL(string: url) else {return}
         
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else{
+        let task =   URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: {data, response, error in
+            
+        guard let data = data, error == nil else{
+                print("Something went wrong")
                 return
             }
             
-           
-            //for objects -----------------------------------
-           // guard let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String : Any] else { return  }
-            // print("\(jsonObject)")
-          //let newData = jsonObject["results"] as? [String : Any]
+            do{
+                self.res = try JSONDecoder().decode(Response.self, from: data)
+            }
+            catch{
+              print("failed to convert \(error.localizedDescription)")
+            }
             
-            //here as? Int mean what type of value is day_length containing
-           // let newData1 = newData!["day_length"] as? Int
-          //  print("\(newData1 ?? 11)")
-           // let status = jsonObject["status"]
-          //  print("\(status)")
-    
-            
-            
-            //for array -------------------------------------
-           
-           guard let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [[String : Any]] else { return  }
-            
-            self.apiData = jsonObject
-            
-            var newVar = self.apiData[2]["rating"] as? [String: Any]
-            var newVar1 = newVar!["rate"] as? Double
-            print("\(newVar1)")
-            //calling index wise title
-           // let title = jsonObject[2]
-            //  let title2 = title1["title"] as? String
-            
-            // or we can do it in all together
-           // let title1 = jsonObject[2]["title"] as? String
-           // print("\(title1)")
-          
-            //this will print with optional
-          //  print("\(title2)")
-            //no optional here
-          //  print("\(title2 ??  "")")
-           // print("\n")
-            //calling all indexed titl
-//            for i in jsonObject{
-//               let title = i["title"]
-//                print("\(title ?? "")")
-//            }
+            guard let json = self.res else{
+                return
+            }
+            print(self.res?.status)
+            print(json.results.sunrise)
+            print(json.results.sunset)
+            print(json.results.solar_noon)
             
             DispatchQueue.main.async {
                 self.table.reloadData()
             }
             
-                
-        }.resume()
+        })
+        task.resume()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return apiData.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        guard indexPath.row < apiData.count else {
-                return cell
-            }
-            
-        let title = apiData[indexPath.row]["rating"] as? [String : Any]
-        let rate = title!["rate"] as? Double
-        cell.textLabel?.text = String(format: "%.2f", rate ?? 0.0 )
+        cell.textLabel?.text = "\(self.res?.status ?? "hello")"
         return cell
     }
 }
 
+struct Response : Codable {
+    let results : MyResult
+    let status : String
+}
+
+struct MyResult : Codable {
+    let sunrise : String
+    let sunset : String
+    let solar_noon : String
+    let day_length : Int
+    let civil_twilight_begin : String
+    let civil_twilight_end : String
+    let nautical_twilight_begin : String
+    let nautical_twilight_end : String
+    let astronomical_twilight_begin : String
+    let astronomical_twilight_end : String
+}
 
 
 
