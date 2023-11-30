@@ -5,16 +5,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet var table : UITableView!
     
+    @IBAction func buttonClick(_ sender : UIButton){
+        // let urlString = "https://api.sunrise-sunset.org/json?date=%202020-01-01&lat=-74.0060&lng=40.7128&formatted=0"
+         
+         let urlString = "https://fakestoreapi.com/products"
+         fetchApiData(with : urlString)
+          sender.isHidden = true
+    }
+    
+    
     var apiData : [[ String : Any]] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         table.delegate = self
         table.dataSource = self
-        
-       // let urlString = "https://api.sunrise-sunset.org/json?date=%202020-01-01&lat=-74.0060&lng=40.7128&formatted=0"
-        
-        let urlString = "https://fakestoreapi.com/products"
-        fetchApiData(with : urlString)
     }
     
     func fetchApiData(with url : String){
