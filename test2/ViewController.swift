@@ -4,10 +4,15 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet var table : UITableView!
+    //for object
     var res : Response?
+    
+    //for jsonarray
+  //  var res : [Response] = []
     
     @IBAction func buttonClick(_ sender : UIButton){
         let url = "https://api.sunrise-sunset.org/json?date= 2020-01-01&lat=-74.0060&lng=40.7128&formatted=0"
+       // let url = "https://fakestoreapi.com/products"
         fetchApiData(with : url)
           sender.isHidden = true
     }
@@ -29,11 +34,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             do{
+                //for object
                 self.res = try JSONDecoder().decode(Response.self, from: data)
+                
+                //for josnarray
+               // self.res = try JSONDecoder().decode([Response].self, from: data)
+                
             }
             catch{
               print("failed to convert \(error.localizedDescription)")
             }
+            
             
             guard let json = self.res else{
                 return
@@ -42,6 +53,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print(json.results.sunrise)
             print(json.results.sunset)
             print(json.results.solar_noon)
+            
+            //for json array
+            //print(self.res[0])
             
             DispatchQueue.main.async {
                 self.table.reloadData()
@@ -62,6 +76,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 }
 
+//for jsonObject
 struct Response : Codable {
     let results : MyResult
     let status : String
@@ -79,6 +94,23 @@ struct MyResult : Codable {
     let astronomical_twilight_begin : String
     let astronomical_twilight_end : String
 }
+
+//for jsonArray
+
+//struct Response : Codable {
+//    let id : Int
+//    let title : String
+//    let price : Double
+//    let description : String
+//    let category : String
+//    let image : String
+//    let rating : Rating
+//}
+//
+//struct Rating : Codable {
+//    let rate : Double
+//    let count : Int
+//}
 
 
 
